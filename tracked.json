@@ -1,1 +1,12 @@
-[]
+[
+  {
+    "market": "USD/NGN",
+    "symbol": "NGN=X",
+    "signal": "BUY",
+    "entry": 1357.63,
+    "stop": 1352.2868,
+    "target": 1373.6597,
+    "created": "2026-11-26T10:29:51.267923+00:00",
+    "max_days": 3
+  }
+]
