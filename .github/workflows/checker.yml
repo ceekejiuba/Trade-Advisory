@@ -1,0 +1,26 @@
+name: Check tracked signals
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install yfinance pandas
+      - run: python checker.py
+        env:
+          ALERT_EMAIL: ${{ secrets.ALERT_EMAIL }}
+          ALERT_APP_PASSWORD: ${{ secrets.ALERT_APP_PASSWORD }}
+      - name: Save changes
+        run: |
+          git config user.name "checker"
+          git config user.email "checker@example.com"
+          git add tracked.json
+          git diff --cached --quiet || (git commit -m "update tracked" && git push)
